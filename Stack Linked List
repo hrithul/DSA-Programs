@@ -1,0 +1,86 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct node {
+  int data;
+  struct node *link;
+};
+struct node *top = NULL, *ptr, *ele;
+void push() {
+  int item;
+  printf("Enter the element to be inserted:");
+  scanf("%d", &item);
+  ele = (struct node *)malloc(sizeof(struct node));
+  ele->data = item;
+  ele->link = NULL;
+  if (top == NULL) {
+    top = ele;
+  } else {
+    ele->link = top;
+    top = ele;
+  }
+}
+void pop() {
+  int del;
+  if (top == NULL) {
+    printf("can't delete ");
+  } else {
+    ptr = top;
+    del = top->data;
+    top = top->link;
+    ptr->link = NULL;
+    free(ptr);
+    printf("%d deleted", del);
+  }
+}
+void display() {
+  if (top == NULL) {
+    printf("List is empty");
+  } else {
+    ptr = top;
+    while (ptr != NULL) {
+      printf("%d  ", ptr->data);
+      ptr = ptr->link;
+    }
+  }
+}
+void status() {
+  int count = 0;
+  ptr = top;
+  if (ptr == NULL) {
+    printf("Stack is empty");
+  } else {
+    while (ptr != NULL) {
+      ptr = ptr->link;
+      count++;
+    }
+    printf("Item at top is : %d\n", top->data);
+    printf("Stack contains %d number of nodes\n", count);
+  }
+}
+void main() {
+  int ch;
+  char chr;
+  do {
+    printf("1.Push \n2.Pop\n3.Display\n4.Status");
+    printf("\nEnter your choice:");
+    scanf("%d", &ch);
+    switch (ch) {
+    case 1:
+      push();
+      break;
+    case 2:
+      pop();
+      break;
+    case 3:
+      display();
+      break;
+    case 4:
+      status();
+      break;
+    default:
+      printf("\nWrong choice");
+    }
+    printf("Do you want to continue(y/n)");
+    scanf(" %c", &chr);
+  } while (chr == 'y' || chr == 'Y');
+}
