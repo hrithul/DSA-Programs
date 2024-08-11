@@ -1,0 +1,164 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+  int data;
+  struct node* link;
+}p,q,r;
+struct node *head, *head2;
+void create(int);
+void create2(int);
+void display();
+void search();
+void main()
+{
+  int ch,x,l;
+  do
+  {
+    printf("\nOPTIONS:\n1.Insert \n2.Search \n3.create LL2 \n4.Exit \n Enter Choice: ");
+    scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:
+            printf(" Enter the Element: ");
+            scanf("%d",&x);
+            create(x);
+            display();
+            break;
+            case 2:
+            search();
+            break;
+            case 3:
+            printf(" Enter the Element LL2:  ");
+            scanf("%d",&x);
+            create2(x);
+            display();
+            break;
+            default:
+            printf(" Exited.");
+        }
+
+    }while(ch < 5);
+}
+void create(int x)
+{
+    struct node *ptr = (struct node *)malloc(sizeof(struct node));
+    struct node *temp;
+    if(ptr == NULL)
+    {
+        printf(" List is FULL");
+    }
+    else
+    {
+        ptr->data = x;
+        if(head == NULL)
+        {
+            head = ptr;
+            ptr ->link = head;
+        }
+        else
+        {
+            temp = head;
+            while(temp ->link != head)
+            {
+                temp = temp ->link;
+            }
+            temp -> link = ptr;
+            ptr -> link = head;
+        }
+    printf("Node Inserted\n");
+    }
+}
+void create2(int x)
+{
+    struct node *ptr2 = (struct node *)malloc(sizeof(struct node));
+    struct node *temp2;
+    if(ptr2 == NULL)
+    {
+        printf(" List is FULL");
+    }
+    else
+    {
+        ptr2->data = x;
+        if(head2 == NULL)
+        {
+            head2 = ptr2;
+            ptr2 ->link = head2;
+        }
+        else
+        {
+            temp2 = head2;
+            while(temp2 ->link != head2)
+            {
+                temp2 = temp2 ->link;
+            }
+            temp2 -> link = ptr2;
+            ptr2 -> link = head2;
+        }
+    printf("\nNode Inserted\n");
+    }
+}
+void display()
+{
+    struct node *ptr = head;
+    if(head == NULL)
+    {
+        printf("List is empty");
+    }
+    else
+    {   ptr=head;
+        printf("Nodes of the circular linked list: ");
+         while(ptr->link != head)
+         {
+           printf("%d ", ptr->data);
+           ptr = ptr->link;
+         }
+         printf("%d ", ptr->data);
+         printf("\n");
+    }
+}
+void search()
+{
+    struct node *ptr;
+    int i=0,x,c=1;
+    ptr = head;
+    if(ptr == NULL)
+    {
+        printf(" List is Empty List ");
+    }
+    else
+    {
+        printf(" Enter item which you want to search ");
+        scanf("%d",&x);
+        if (head->data == x)
+        {
+          printf(" Element found at %d",i+1);
+          c=0;
+          return;
+        }
+        else
+        {
+          do
+          {
+            if(ptr->data == x)
+             {
+               printf("Element found at location %d ",i+1);
+               c=0;
+               return;
+              }
+              else
+              {
+                c=1;
+              }
+               i++;
+               ptr = ptr->link;
+
+          }while (ptr->link!=head || ptr !=head );
+       }
+       if(c!=0)
+       {
+         printf(" Element not found ");
+        return;
+       }
+    }
+  }
