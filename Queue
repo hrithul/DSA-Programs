@@ -1,0 +1,110 @@
+#include<stdio.h>
+int queue[10],max,front=-1,rear =-1,i;
+void enqueue(int new_el)
+{
+    if(front==-1&&rear==-1)
+        {
+            front=0;
+            rear=0;
+        }
+    else
+        {
+            if(isFull()==1)
+                printf("\nList is full ");
+            else
+                {
+                    rear=rear+1;
+                }
+        }
+        queue[rear]=new_el;
+
+}
+
+void dequeue()
+{
+    int del;
+    if(isEmpty()==1)
+        printf("\nQueue is empty");
+    else
+    {
+        del=queue[front];
+        front=front+1;
+        printf("\nElement %d deleted \n",del);
+    }
+}
+
+void display()
+{
+    if(isEmpty()==1)
+        printf("\nQueue is empty");
+    else
+        for(i=front;i<=rear;i++)
+            printf("%d\n",queue[i]);
+}
+
+int isEmpty()
+{
+    if((front==rear==-1)||front>rear)
+        return 1;
+    else return 0;
+}
+
+int isFull()
+{
+    if(rear+1==max)
+        return 1;
+    else return 0;
+}
+
+void main()
+{
+    int select,newel;
+    char ysno;
+
+    printf("Enter maximum size of list : ");
+    scanf("%d",&max);
+    printf("\n 1. Add new element\n 2. Delete element\n 3. Display elements of list\n 4. Check list is empty\n 5. Check list is full\n");
+
+    do
+    {
+    printf(" Enter your choice of operation : ");
+    scanf(" %d",&select);
+
+    switch(select)
+    {
+      case 1:
+        printf(" \nEnter the element to be inserted : ");
+        scanf(" %d",&newel);
+        enqueue(newel);
+        break;
+
+      case 2:
+        dequeue();
+        break;
+
+      case 3:
+        display();
+        break;
+
+      case 4:
+        if(isEmpty())
+            printf("\n List is empty");
+        else
+            printf("\n List is not empty\n ");
+        break;
+
+      case 5:
+        if(isFull())
+            printf("\n List is full");
+        else
+            printf("\n List is not full\n ");
+        break;
+
+      default:
+            printf(" \nEnter valid operation\n ");
+
+    }printf("\nDo you want to continue ? Y-yes/N-no : ");
+      scanf(" %c",&ysno);
+    }
+    while(ysno=='Y'||ysno=='y');
+}
