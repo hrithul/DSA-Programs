@@ -1,0 +1,165 @@
+#include<stdio.h>
+int maxsize,i,j,front=-1,rear=-1;
+void pq_enqueue(int,int);
+void pq_dequeue();
+void display();
+int isEmpty_pq();
+int isFull_pq();
+struct ele_pq
+{
+int value;
+int priority;
+}pq[10],temp;
+
+int main()
+{
+    int ch,newelement,elepriority;
+    char c;
+
+    printf(" Enter the no of elements of the List : ");
+    scanf("%d",&maxsize);
+
+    do
+    {
+    printf("1. Enqueue\n2. Dequeue\n3. Display\n4. Check if list is empty\n5. Check if list is full\n");
+    printf(" Enter your choice : ");
+    scanf(" %d",&ch);
+
+    switch(ch)
+    {
+      case 1:
+      {
+      printf(" Enter the element to be inserted\n");
+      scanf(" %d",&newelement);
+      printf("Enter the element priority\n");
+      scanf("%d",&elepriority);
+      pq_enqueue(newelement,elepriority);
+      break;
+      }
+      case 2:
+      {
+      pq_dequeue();
+      break;
+      }
+      case 3:
+      {
+      display();
+      break;
+      }
+      case 4:
+      {
+      if(isEmpty_pq())
+      printf("\n List is empty");
+      else
+      printf("\n List is not empty ");
+      break;
+      }
+      case 5:
+      {
+      if(isFull_pq())
+      printf("\n List is full");
+      else
+      printf("\n List is not full ");
+      break;
+      }
+      default:
+      printf(" \nInvalid choice");
+      }
+      printf("\nDo you want to continue?(Y/N): ");
+      scanf(" %c",&c);
+    }
+    while(c=='Y'||c=='y');
+  }
+
+void pq_enqueue(int newelement, int elepriority)
+ {
+     if (isFull_pq())
+  {
+    printf(" List is full\n");
+  }
+  else
+  {
+      if(front==-1&&rear==-1)
+        front=rear=0;
+      else
+      rear=rear+1;
+    pq[rear].value=newelement;
+    pq[rear].priority=elepriority;
+    printf("Element inserted");
+  }
+ }
+
+void pq_dequeue()
+{
+  int deleted_value,deleted_ele_priority;
+  if (isEmpty_pq())
+  {
+    printf("List is empty\n");
+  }
+  else
+  {
+  for(i=0;i<maxsize-1;i++)
+  {
+  for(j=0;j<maxsize-i-1;j++)
+  {
+  if(pq[j].priority<pq[j+1].priority)
+  {
+  temp=pq[j];
+  pq[j]=pq[j+1];
+  pq[j+1]=temp;
+  }
+  }
+  }
+  deleted_value=pq[front].value;
+  deleted_ele_priority = pq[front].priority;
+  front=front+1;
+  printf(" Element '%d' deleted ",deleted_value);
+}
+}
+
+void display()
+{
+  if (isEmpty_pq())
+  {
+    printf(" List is empty\n");
+  }
+  else
+  {
+  for(i=0;i<maxsize-1;i++)
+  {
+  for(j=0;j<maxsize-i-1;i++)
+  {
+  if(pq[j].priority<pq[j+1].priority)
+  {
+  temp=pq[j];
+  pq[j]=pq[j+1];
+  pq[j+1]=temp;
+  }
+  }
+  }
+  printf("\nThe elements are : \n");
+  for (i =front; i<=rear ;i++)
+    {
+      printf(" %d\t%d\n",pq[i].value,pq[i].priority);
+    }
+  }
+}
+
+int isEmpty_pq()
+{
+   if ((front==rear==-1)||(front>rear))
+   {
+      return 1;
+   }
+   else return 0;
+}
+
+
+int isFull_pq()
+{
+  if (rear+1==maxsize)
+  {
+    return 1;
+  }
+  else return 0;
+}
