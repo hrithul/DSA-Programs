@@ -1,0 +1,128 @@
+#include<stdio.h>
+int maxsize, stack[15],i=0,tos=-1;
+void push(int);
+void pop();
+void display();
+int isEmpty();
+int isFull();
+
+void main()
+{
+    int ch,newelement;
+    char c;
+
+    printf(" Enter the no of elements of the List : ");
+    scanf("%d",&maxsize);
+
+    do
+    {
+    printf("1. Push\n2. Pop\n3. Display\n4. Check if list is full\n5. Check if list is empty\n");
+    printf(" Enter your choice : ");
+    scanf(" %d",&ch);
+
+    switch(ch)
+    {
+      case 1:
+      {
+      printf(" Enter the element to be inserted\n");
+      scanf(" %d",&newelement);
+      push(newelement);
+      break;
+      }
+      case 2:
+      {
+      pop();
+      break;
+      }
+      case 3:
+      {
+      display();
+      break;
+      }
+      case 5:
+      {
+      if(isEmpty())
+      printf("\n List is empty");
+      else
+      printf("\n List is not empty ");
+      break;
+      }
+      case 4:
+      {
+      if(isFull())
+      printf("\n List is full");
+      else
+      printf("\n List is not full ");
+      break;
+      }
+      default:
+      printf(" \nInvalid choice");
+      }
+      printf("\nDo you want to continue?(Y/N): ");
+      scanf(" %c",&c);
+    }
+    while(c=='Y'||c=='y');
+  }
+
+void push(int newelement)
+{
+  if (isFull())
+  {
+    printf(" List is full\n");
+  }
+  else
+  {
+    tos = tos + 1;
+    stack[tos] = newelement;
+    printf(" \nElement inserted\n");
+  }
+}
+
+void pop()
+{
+  int deleted_ele;
+  if (isEmpty())
+  {
+    printf(" List is empty\n");
+  }
+  else
+  { deleted_ele = stack[tos];
+    tos = tos -1;
+  }
+  printf(" \nElement '%d' deleted \n",deleted_ele);
+}
+
+void display()
+{
+  if (isEmpty())
+  {
+    printf(" List is empty\n");
+  }
+  else
+  {
+    printf("\nThe elements are : \n");
+    for (i = tos; i>=0 ; i--)
+    {
+      printf(" %d\n",stack[i]);
+    }
+  }
+}
+
+int isEmpty()
+{
+   if (tos==-1)
+   {
+      return 1;
+   }
+   else return 0;
+}
+
+
+int isFull()
+{
+  if (tos+1 == maxsize)
+  {
+    return 1;
+  }
+  else return 0;
+}
